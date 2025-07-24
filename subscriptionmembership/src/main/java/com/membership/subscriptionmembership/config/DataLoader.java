@@ -23,7 +23,6 @@ public class DataLoader {
             MembershipPlanRepository membershipPlanRepository
     ) {
         return args -> {
-            // ✅ Create Benefits
             Benefit b1 = new Benefit(null, "Priority Support", "Get priority access to support", MembershipTier.GOLD);
             Benefit b2 = new Benefit(null, "Free Delivery", "No delivery charges", MembershipTier.SILVER);
             Benefit b3 = new Benefit(null, "Exclusive Deals", "Access to premium deals", MembershipTier.PLATINUM);
@@ -32,21 +31,19 @@ public class DataLoader {
 
             benefitRepository.saveAll(List.of(b1, b2, b3, b4, b5));
 
-            // ✅ Create Membership Plans
             MembershipPlan monthly = new MembershipPlan(null, MembershipType.MONTHLY, 199.99);
             MembershipPlan quarterly = new MembershipPlan(null, MembershipType.QUARTERLY, 499.99);
             MembershipPlan yearly = new MembershipPlan(null, MembershipType.YEARLY, 1499.99);
 
             membershipPlanRepository.saveAll(List.of(monthly, quarterly, yearly));
 
-            // ✅ Create Users
             User user1 = new User(null, "John Doe", "john@example.com", null);
             User user2 = new User(null, "Jane Smith", "jane@example.com", null);
             User user3 = new User(null, "Alex Brown", "alex@example.com", null);
 
             userRepository.saveAll(List.of(user1, user2, user3));
 
-            // ✅ Create Memberships
+
             Membership m1 = new Membership(null, MembershipType.MONTHLY, MembershipTier.GOLD,
                     LocalDate.now(), LocalDate.now().plusMonths(1), true, user1, Set.of(b1, b2, b5));
 
@@ -58,7 +55,6 @@ public class DataLoader {
 
             membershipRepository.saveAll(List.of(m1, m2, m3));
 
-            // ✅ Link memberships back to users
             user1.setMembership(m1);
             user2.setMembership(m2);
             user3.setMembership(m3);
